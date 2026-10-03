@@ -1,3 +1,4 @@
+#include <iostream>
 #include <thread>
 #include <chrono>
 
@@ -17,6 +18,15 @@ void checkWorkingTime() {
         cin.clear();
         cin.ignore(10000, '\n');
     }
+    while (days != 5) {
+    cout << "Ошибка! Для данного режима требуется 5 рабочих дней: ";
+
+    if (!(cin >> days)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+
+    }
 
     cout << "Введите ставку (например, 0.5): ";
     while (!(cin >> rate)) {
@@ -24,6 +34,14 @@ void checkWorkingTime() {
         cin.clear();
         cin.ignore(10000, '\n');
     }
+    while (days != 5) {
+    cout << "Ошибка! Для данного режима требуется 5 рабочих дней: ";
+
+    if (!(cin >> days)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+    }
+}
 
     do {
         cout << "Введите норму часов в день: ";
@@ -36,18 +54,23 @@ void checkWorkingTime() {
 
         double totalWeeklyHours = days * dailyHours;
 
-        if (days == 5 && rate == 0.5 && dailyHours < 4.0) {
+        if (dailyHours != 4.0) {
             double deficit = 20.0 - totalWeeklyHours;
+        if (deficit < 0) {
+        deficit = 0;
+        }
 
             cout << "\nОшибка! При 5-дневной рабочей неделе "
                  << dailyHours << " часа(-ов) в день составляют "
                  << totalWeeklyHours << " часов в неделю.\n";
 
-            cout << "Дефицит рабочего времени: "
-                 << deficit << " часов.\n";
+            if (totalWeeklyHours < 20.0) {
+                cout << "Дефицит рабочего времени: "
+                     << deficit << " часов.\n";
+}
 
-            cout << "Налицо факт предоставления заведомо ложных "
-                    "сведений работодателю.\n";
+            cout << "Введенное количество часов не соответствует "
+                    "установленной норме.\n";
 
             cout << "Требуется установить норму в 4 часа в день!\n\n";
         }
